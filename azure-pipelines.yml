@@ -11,30 +11,39 @@ pool:
 
 stages:
   - stage: Devdeploy
+    variables:
+    -  name: Dev
     jobs:
     - job: devdeploymentjob
       steps:
       - bash: echo Devdeploy job is run now 
     - job: devdeploymentjob2
       steps:
+      - bash: echo building ($name)_environment 
       - bash: echo devdeploy job 2 is run now
       - bash: echo $(PipelineLevelVariable)
+
   - stage: QAdeploy
+    variables:
+      environment: QA
     dependsOn: Devdeploy
     jobs:
-    - job: devdeploymentjob
+    - job: qadeploymentjob
       steps:
-      - bash: echo Devdeploy job is run now 
-    - job: devdeploymentjob2
+      - bash: echo building ($environment)_environment
+      - bash: echo building ($name)_environment
+      - bash: echo qadeploy job is run now 
+    - job: qadeploymentjob2
       steps:
-      - bash: echo devdeploy job 2 is run now
+      - bash: echo qadeploy job 2 is run now
       - bash: echo $(PipelineLevelVariable)
+
   - stage: Proddeploy
     dependsOn:
     - Devdeploy
     - QAdeploy
     jobs:
-    - job: qadeployjob
+    - job: proddeployjob
       steps:
-      - bash: echo qa deploy job
+      - bash: echo prod deploy job
       - bash: $(PipelineLevelVariable)
