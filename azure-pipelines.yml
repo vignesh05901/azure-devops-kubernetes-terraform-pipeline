@@ -18,9 +18,23 @@ stages:
     - job: devdeploymentjob2
       steps:
       - bash: echo devdeploy job 2 is run now
+      - bash: echo $(PipelineLevelVariable)
   - stage: QAdeploy
     dependsOn: Devdeploy
+    jobs:
+    - job: devdeploymentjob
+      steps:
+      - bash: echo Devdeploy job is run now 
+    - job: devdeploymentjob2
+      steps:
+      - bash: echo devdeploy job 2 is run now
+      - bash: echo $(PipelineLevelVariable)
+  - stage: Proddeploy
+    dependsOn:
+    - Devdeploy
+    - QAdeploy
     jobs:
     - job: qadeployjob
       steps:
       - bash: echo qa deploy job
+      - bash: $(PipelineLevelVariable)
