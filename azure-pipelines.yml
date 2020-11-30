@@ -19,7 +19,7 @@ stages:
       - bash: echo Devdeploy job is run now 
     - job: devdeploymentjob2
       steps:
-      - bash: echo building ($name)_environment 
+      - bash: echo building $(name)_environment 
       - bash: echo devdeploy job 2 is run now
       - bash: echo $(PipelineLevelVariable)
 
@@ -30,8 +30,8 @@ stages:
     jobs:
     - job: qadeploymentjob
       steps:
-      - bash: echo building ($environment)_environment
-      - bash: echo building ($name)_environment
+      - bash: echo building $(environment)_environment
+      - bash: echo building $(name)_environment
       - bash: echo qadeploy job is run now 
     - job: qadeploymentjob2
       steps:
