@@ -19,6 +19,7 @@ stages:
       steps:
       - bash: echo devdeploy job 2 is run now
   - stage: QAdeploy
+    dependsOn: Devdeploy
     jobs:
     - job: qadeployjob
       steps:
