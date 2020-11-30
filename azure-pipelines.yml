@@ -46,4 +46,4 @@ stages:
     - job: proddeployjob
       steps:
       - bash: echo prod deploy job
-      - bash: $(PipelineLevelVariable)
+      - bash: echo $(PipelineLevelVariable)
